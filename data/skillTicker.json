@@ -1,0 +1,28 @@
+[
+  {
+    "parts": [
+      { "text": "Designer skillset: Adobe Creative Suite", "icon": "assets/Icons/CreativeCloud_Icon.png", "alt": "Adobe Creative Suite" }
+    ]
+  },
+  {
+    "parts": [
+      { "text": "Experienced in Photoshop", "icon": "assets/Icons/Photoshop_Icon.png", "alt": "Photoshop" },
+      { "text": "Illustrator", "icon": "assets/Icons/Illustrator_Icon.png", "alt": "Illustrator" },
+      { "text": "After Effects", "icon": "assets/Icons/AfterEffects_Icon.png", "alt": "After Effects" },
+      { "text": "Premiere Pro", "icon": "assets/Icons/PremierePro_Icon.png", "alt": "Premiere Pro" }
+    ]
+  },
+  {
+    "parts": [
+      { "text": "3D workflow experience with Blender", "icon": "assets/Icons/Blender_Icon.png", "alt": "Blender" }
+    ]
+  },
+  {
+    "parts": [
+      { "text": "Programming and web design experience with HTML", "icon": "assets/Icons/HTML_Icon.png", "alt": "HTML" },
+      { "text": "CSS", "icon": "assets/Icons/CSS_Icon.png", "alt": "CSS" },
+      { "text": "JavaScript", "icon": "assets/Icons/Java_Icon.png", "alt": "JavaScript" },
+      { "text": "JSON", "icon": "assets/Icons/JSON_Icon.png", "alt": "JSON" }
+    ]
+  }
+]

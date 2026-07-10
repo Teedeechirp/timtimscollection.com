@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PS2 Portfolio System</title>
+
+  <link rel="stylesheet" href="css/main.css"/>
+</head>
+
+<body>
+<div class="black-box"></div>
+
+  <!-- AMBIENT -->
+  <div id="ambient-layer">
+<video id="ambient-video" autoplay muted loop>
+    <source src="assets/ambient.mp4.mp4" type="video/mp4" />
+  </video>
+
+  </div>
+
+  <!-- BOOT SCREEN -->
+  
+  <div id="boot-screen" class="screen active">
+    <div class="boot-glow"></div>
+    <div class="boot-logo">TIMTIM'<span class="boot-logo-small">S</span></div>
+    <div class="boot-status" id="boot-status">
+      Allocating big titty goths...
+    </div>
+  </div>
+
+  <!-- APP -->
+  <div id="app" class="screen hidden">
+
+    <!-- MENU -->
+    <div id="menu-screen" class="screen hidden">
+      <div id="ticker-tape" aria-label="Log updates">
+        <div class="ticker-track"></div>
+      </div>
+
+      <button id="dev-log-button" type="button">
+        DEV LOG<span class="dots" data-dots></span>
+      </button>
+
+      <div id="dev-log-panel" class="hidden" aria-label="Development log">
+        <button id="dev-log-close" type="button">&times;</button>
+        <div class="dev-log-title">DEVELOPMENT LOG</div>
+        <div id="dev-log-content"></div>
+      </div>
+
+      <div class="menu-left">
+        <div class="menu-title">COLLECTION.</div>
+        <div class="title-ticker" aria-label="Selection updates">
+          <div class="ticker-track"></div>
+        </div>
+
+        <div class="menu-items">
+         <div class="menu-item" data-target="browser">
+  Browser<span class="dots" data-dots></span>
+</div>
+
+<div class="menu-item" data-target="system">
+  Artist Info / Contact<span class="dots" data-dots></span>
+</div>
+        </div>
+      </div>
+
+     <div class="menu-right">
+  <div id="preview-window">
+
+    <div id="preview-close">&times;</div>
+
+    <div id="preview-text"></div>
+
+    <div id="task-manager" aria-label="Task manager">
+      <div class="task-controls">
+        <button id="task-add-button" type="button">+</button>
+        <button id="task-clear-button" type="button">CLEAR</button>
+      </div>
+      <input id="task-input" class="hidden" type="text" aria-label="New task" placeholder="TYPE TASK" />
+      <div id="task-list"></div>
+    </div>
+
+    <!-- GRID LAYER -->
+    <div id="memory-grid-wrapper">
+
+      <div id="grid-loading" class="hidden">
+        NOW LOADING...
+      </div>
+
+      <div id="memory-grid"></div>
+
+    </div>
+
+  </div>
+</div>
+      </div>
+
+    </div>
+
+    <!-- MEMORY -->
+   
+    <!-- DETAIL -->
+    <div id="detail-screen" class="screen hidden">
+      <div id="detail-content"></div>
+    </div>
+
+  </div>
+
+  <script src="js/StateManager.js"></script>
+  <script src="js/audioManager.js"></script>
+  <script src="js/Main.js"></script>
+
+  <div id="arcade-crt-overlay" aria-hidden="true">
+    <div class="crt-mask-zone" data-crt-zone="top"></div>
+    <div class="crt-mask-zone" data-crt-zone="right"></div>
+    <div class="crt-mask-zone" data-crt-zone="bottom"></div>
+    <div class="crt-mask-zone" data-crt-zone="left"></div>
+  </div>
+
+</body>
+</html>

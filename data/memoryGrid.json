@@ -1,0 +1,246 @@
+[
+  {
+    "id": 1,
+    "title": ".01 MODULAR UFO BUILDKIT",
+    "type": "image",
+    "thumbnail": "assets/thumbs/Thumbs_01.png",
+    "description": "This graduation project explores how digital graphic design can be transformed into a physical form. Combining graphic design, and spatial design, the project translates digital workflows into tangible, immersive work through experimentation and prototyping.",
+    "miniGrid": [
+      {
+        "id": 1,
+        "title": "Book Cover",
+        "thumbnail": "assets/Project_Ufo/BookCover.png"
+      },
+      {
+        "id": 2,
+        "title": "Kitbash Poster",
+        "thumbnail": "assets/Project_Ufo/KitbashPoster.png"
+      },
+     
+      {
+        "id": 6,
+        "title": "Prototype 1",
+        "thumbnail": "assets/Project_Ufo/WEBPrototype1.jpg"
+      },
+      {
+        "id": 7,
+        "title": "Prototype 2",
+        "thumbnail": "assets/Project_Ufo/WEBPrototype2.jpg"
+      },
+      {
+        "id": 8,
+        "title": "Prototype 3",
+        "thumbnail": "assets/Project_Ufo/WEBPrototype3.jpg"
+      },
+      {
+        "id": 8,
+        "title": "Prototype 4",
+        "thumbnail": "assets/Project_Ufo/WEBPrototype4.jpg"
+      },
+      {
+        "id": 9,
+        "title": "Connection Pieces Print",
+        "thumbnail": "assets/Project_Ufo/WEBConnectionPiecesPrint.jpg"
+      },
+      {
+        "id": 10,
+        "title": "Connector Design Print",
+        "thumbnail": "assets/Project_Ufo/WEBConnectorDesignPrint.jpg"
+      },
+      {
+        "id": 11,
+        "title": "Cylinder Leg Print",
+        "thumbnail": "assets/Project_Ufo/WEBCylinderLegPrint.jpg"
+      },
+      {
+        "id": 12,
+        "title": "First Cylinder Print",
+        "thumbnail": "assets/Project_Ufo/WEBFirstCylinderPrint.jpg"
+      },
+      {
+        "id": 13,
+        "title": "Peenor Print",
+        "thumbnail": "assets/Project_Ufo/WEBPeenorPrint.jpg"
+      },
+      {
+        "id": 13,
+        "title": "ExhibitMockup",
+        "thumbnail": "assets/Project_Ufo/ExhibitMockup.jpeg"
+      }
+    ]
+  },
+ 
+  {
+    "id": 2,
+    "title": ".02 POSTER DESIGN",
+    "type": "video",
+    "thumbnail": "assets/thumbs/Thumbs_02.png",
+    "description": "A recent series of poster designs developed as part of my ongoing graphic practice. The work explores composition, digital collage, and visual experimentation, focusing on building a clear and evolving visual language through iterative design.",
+    "miniGrid": [
+       {
+        "id": 3,
+        "title": "Kraken Poster",
+        "thumbnail": "assets/Project_Ufo/KrakenPoster.png"
+      },
+      {
+        "id": 4,
+        "title": "Deep Blue Poster",
+        "thumbnail": "assets/Project_Ufo/DeepBluePoster.png"
+      },
+      {
+        "id": 5,
+        "title": "Ufo Party Poster",
+        "thumbnail": "assets/Project_Ufo/UfoPartyPoster.png"
+      },
+      {
+        "id": 1,
+        "title": "666",
+        "thumbnail": "assets/Poster_Design/WEBPoster_Designs_A3_666.jpg"
+      },
+      {
+        "id": 2,
+        "title": "Invasion",
+        "thumbnail": "assets/Poster_Design/WEBPoster_Designs_A3_Invasion.jpg"
+      },
+      {
+        "id": 3,
+        "title": "Nibiri",
+        "thumbnail": "assets/Poster_Design/WEBPoster_Designs_A3_Nibiri.jpg"
+      },
+      {
+        "id": 6,
+        "title": "Techno",
+        "thumbnail": "assets/Poster_Design/WEBPoster_Designs_A3_Techno.jpg"
+      },
+      {
+        "id": 7,
+        "title": "Trash Binn",
+        "thumbnail": "assets/Poster_Design/WEBPoster_Designs_A3_TrashBinn.jpg"
+      }
+    ]
+  },
+ 
+  {
+    "id": 3,
+    "title": ".3 CONCEPT ART",
+    "type": "image",
+    "thumbnail": "assets/thumbs/Thumbs_03.png",
+    "description": "A selection of concept art exploring ideas, forms, and visual worlds through digital sketching and experimentation. The work focuses on developing strong visual directions and testing compositions, shapes, and moods.",
+    "miniGrid": [
+      {
+        "id": 1,
+        "title": "FallenKing",
+        "thumbnail": "assets/Concept_Art/FallenKing.png"
+      },
+      {
+        "id": 1,
+        "title": "Vintage Photo Rework",
+        "thumbnail": "assets/Concept_Art/Vintage Photo Rework.png"
+      },
+      {
+        "id": 2,
+        "title": "Vintage Photo Rework 2",
+        "thumbnail": "assets/Concept_Art/Vintage Photo Rework 2.png"
+      },
+      {
+        "id": 3,
+        "title": "Vintage Photo Rework 3",
+        "thumbnail": "assets/Concept_Art/Vintage Photo Rework 3.png"
+      },
+   {
+        "id": 6,
+        "title": "Space",
+        "thumbnail": "assets/Concept_Art/Space.jpeg"
+      },
+      {
+        "id": 5,
+        "title": "Pre-Order",
+        "thumbnail": "assets/Concept_Art/Pre-Order.jpeg"
+      },
+      {
+        "id": 4,
+        "title": "Ship",
+        "thumbnail": "assets/Concept_Art/Ship.png"
+      }
+    ]
+  },
+
+  {
+    "id": 4,
+    "title": ".04 DESIGNS ON SHIRTS",
+    "type": "image",
+    "thumbnail": "assets/thumbs/Thumbs_04.png",
+    "description": "A series of shirt designs that translate my graphic work into wearable formats. These designs focus on bold visuals, composition, and adapting digital aesthetics to textile applications.",
+    "miniGrid": [
+      {
+        "id": 1,
+        "title": "Apple",
+        "type": "image",
+        "thumbnail": "assets/Shirt_Designs/Apple.png"
+      },
+      {
+        "id": 2,
+        "title": "Cosmo",
+        "type": "image",
+        "thumbnail": "assets/Shirt_Designs/Cosmo.png"
+      }
+      
+    ]
+  },
+ 
+  {
+    "id": 5,
+    "title": ".05 MOTION GRAPHICS",
+    "type": "video",
+    "thumbnail": "assets/Motion_Graphics/Blob.mp4",
+    "description": "Motion graphics work exploring movement, rhythm, and visual systems through digital animation. The focus is on creating dynamic compositions that extend my graphic design practice into time-based media.",
+    "miniGrid": [
+      {
+        "id": 1,
+        "title": "Trippy",
+        "type": "video",
+        "thumbnail": "assets/Motion_Graphics/Trippy.mp4"
+      },
+      {
+        "id": 2,
+        "title": "Lines",
+        "type": "video",
+        "thumbnail": "assets/Motion_Graphics/Lines.mp4"
+      },
+      {
+        "id": 3,
+        "title": "Gruis",
+        "type": "video",
+        "thumbnail": "assets/Motion_Graphics/Gruis.mp4"
+      },
+      {
+        "id": 4,
+        "title": "Blob",
+        "type": "video",
+        "thumbnail": "assets/Motion_Graphics/Blob.mp4"
+      }
+    ]
+  },
+ 
+  {
+    "id": 6,
+    "title": ".06 ALBUM COVERS",
+    "type": "image",
+    "thumbnail": "assets/Album_Cover/Sin.png",
+    "description": "Album cover designs combining digital collage, typography, and conceptual imagery. The work focuses on creating strong visual identities that reflect sound and mood through graphic composition.",
+    "miniGrid": [
+      {
+        "id": 1,
+        "title": "Sin",
+        "type": "Cover",
+        "thumbnail": "assets/Album_Cover/Sin.png"
+      },
+       {
+        "id": 2,
+        "title": "Possum",
+        "type": "Cover",
+        "thumbnail": "assets/Album_Cover/Possum.png"
+      }
+    ]
+    }
+]

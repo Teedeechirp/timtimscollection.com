@@ -1,0 +1,181 @@
+[
+  {
+    "version": "v0.1.0",
+    "date": "February 12, 2026",
+    "items": [
+      "Restored boot sequence",
+      "Restored menu state system",
+      "Restored menu button interactions"
+    ]
+  },
+  {
+    "version": "v0.1.1",
+    "date": "February 24, 2026",
+    "items": [
+      "Repaired Browser grid loading through JSON",
+      "Restored thumbnail display",
+      "Restored title display"
+    ]
+  },
+  {
+    "version": "v0.1.2",
+    "date": "March 6, 2026",
+    "items": [
+      "Fixed hover previews",
+      "Restored triple-dot button animation",
+      "Restored selected menu states"
+    ]
+  },
+  {
+    "version": "v0.1.3",
+    "date": "March 18, 2026",
+    "items": [
+      "Added project detail pages",
+      "Added image, title, and description layout",
+      "Added return behavior"
+    ]
+  },
+  {
+    "version": "v0.1.4",
+    "date": "March 29, 2026",
+    "items": [
+      "Refined detail layout",
+      "Placed project image on the left",
+      "Added scrollable mini-grid area"
+    ]
+  },
+  {
+    "version": "v0.2.0",
+    "date": "April 8, 2026",
+    "items": [
+      "Added JSON-powered mini-grids",
+      "Prepared project-specific image collections",
+      "Improved archive editing workflow"
+    ]
+  },
+  {
+    "version": "v0.2.1",
+    "date": "April 19, 2026",
+    "items": [
+      "Added UFO archive entries",
+      "Added poster, concept art, and shirt design media",
+      "Added motion graphics and album cover media"
+    ]
+  },
+  {
+    "version": "v0.2.2",
+    "date": "April 30, 2026",
+    "items": [
+      "Added muted looping video support",
+      "Prepared motion graphics mini-grid items",
+      "Improved animated thumbnail handling"
+    ]
+  },
+  {
+    "version": "v0.2.3",
+    "date": "May 11, 2026",
+    "items": [
+      "Added full-size image viewer",
+      "Added full-size video viewer",
+      "Connected viewers to mini-grid tiles"
+    ]
+  },
+  {
+    "version": "v0.2.4",
+    "date": "May 23, 2026",
+    "items": [
+      "Improved loading states",
+      "Added loading text behavior",
+      "Improved hover locks and grid dimming"
+    ]
+  },
+  {
+    "version": "v0.3.0",
+    "date": "June 3, 2026",
+    "items": [
+      "Restyled boot screen",
+      "Added dark red neon horror palette",
+      "Added faded background boot layer"
+    ]
+  },
+  {
+    "version": "v0.3.1",
+    "date": "June 14, 2026",
+    "items": [
+      "Added Arcade CRT screen effect",
+      "Added preview-window masking",
+      "Adjusted effect layering"
+    ]
+  },
+  {
+    "version": "v0.3.2",
+    "date": "June 25, 2026",
+    "items": [
+      "Improved boot-to-menu transition",
+      "Added ambient video fade-in",
+      "Added fast menu fade-in"
+    ]
+  },
+  {
+    "version": "v0.3.3",
+    "date": "July 1, 2026",
+    "items": [
+      "Added Contact Terminal",
+      "Added profile image area",
+      "Added artist information and contact fields"
+    ]
+  },
+  {
+    "version": "v0.3.4",
+    "date": "July 7, 2026",
+    "items": [
+      "Added dual ticker tapes",
+      "Added changelog update ticker",
+      "Added designer skillset ticker"
+    ]
+  },
+  {
+    "version": "v0.4.0",
+    "date": "July 7, 2026",
+    "items": [
+      "Added JSON-powered development log with ticker hover access",
+      "Added program icons to the top skill ticker",
+      "Moved floating ticker and menu controls above the CRT layer",
+      "Added persistent checklist with saved checked states",
+      "Refined project archives with hover-based preview images",
+      "Disabled archive image click viewer after hover preview became the main interaction",
+      "Updated Contact Terminal layout, copy behavior, and PDF download placement",
+      "Reduced CRT scanline opacity and added subtle vertical scanline drift",
+      "Updated project archive JSON paths to use optimized WEB image files",
+      "Checked local performance and reduced total asset weight after image replacements",
+      "Added desktop-responsive layout behavior for smaller browser windows"
+    ]
+  },
+  {
+    "version": "v0.4.1",
+    "date": "July 9, 2026",
+    "items": [
+      "Secured the official domain name timtimscollection.com",
+      "Prepared the project for its next publishing phase",
+      "Planned the upcoming phone and tablet interface pass"
+    ]
+  },
+  {
+    "version": "v0.4.2",
+    "date": "July 9, 2026",
+    "items": [
+      "Started the dedicated mobile interface pass",
+      "Repositioned the mobile preview window, COLLECTION title, and menu controls",
+      "Adjusted the mobile boot logo and faded background logo placement",
+      "Converted the mobile Browser grid into a vertical scroll menu",
+      "Added mobile loading auto-scroll behavior for Browser and project archive grids",
+      "Added fixed NOW LOADING text overlays with animated dots",
+      "Added scroll-line selection behavior for mobile grids",
+      "Disabled user scrolling while mobile grids are loading",
+      "Rebuilt the mobile Contact Terminal into a vertical reading layout",
+      "Updated portfolio contact information to timtimscollection.com",
+      "Cleared the task manager defaults and added a task clear button",
+      "Added mobile overflow guards to prevent unwanted phone zoom"
+    ]
+  }
+]
