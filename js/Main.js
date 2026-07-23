@@ -11,6 +11,18 @@ window.addEventListener("load", async () => {
   const taskClearButton = document.getElementById("task-clear-button");
   const taskInput = document.getElementById("task-input");
   const taskList = document.getElementById("task-list");
+  const workTimer = document.getElementById("work-timer");
+  const timerModes = document.querySelectorAll(".timer-mode");
+  const timerDisplay = document.getElementById("timer-display");
+  const timerPhase = document.getElementById("timer-phase");
+  const timerStatus = document.getElementById("timer-status");
+  const timerStart = document.getElementById("timer-start");
+  const timerPause = document.getElementById("timer-pause");
+  const timerReset = document.getElementById("timer-reset");
+  const productivityGraph = document.getElementById("productivity-graph");
+  const productivityChart = document.getElementById("productivity-chart");
+  const productivityTotal = document.getElementById("productivity-total");
+  const productivityPointList = document.getElementById("productivity-point-list");
   const crtOverlay = document.getElementById("arcade-crt-overlay");
   const crtMaskZones = {
     top: document.querySelector('[data-crt-zone="top"]'),
@@ -23,6 +35,7 @@ window.addEventListener("load", async () => {
   const systemItem = document.querySelector('.menu-item[data-target="system"]');
   const menuItems = document.querySelector(".menu-items");
   const menuTitle = document.querySelector(".menu-title");
+  const collectionLetters = document.querySelectorAll(".collection-letter");
   const titleTicker = document.querySelector(".title-ticker");
   const titleTickerTrack = titleTicker?.querySelector(".ticker-track");
   const tickerTape = document.getElementById("ticker-tape");
@@ -63,15 +76,54 @@ window.addEventListener("load", async () => {
   let browserGridCenterHighlightFrame;
   let browserGridLoading = false;
   let browserGridSensorEnabled = true;
+  let activeCollectionTool = null;
+  let timerAudioContext;
+  let timerInterval;
+  let timerMode = { workSeconds: 25 * 60, breakSeconds: 5 * 60 };
+  let timerPhaseName = "WORK";
+  let timerRemainingSeconds = timerMode.workSeconds;
+  let timerRunning = false;
+  let activeCollectionPlaceholderText = "";
   const defaultPreviewText = "";
-  const taskStorageKey = "timtim-user-checklist-empty-v1";
-  const defaultTasks = [];
+  const taskStorageKey = "timtim-scheduled-checklist-v1";
+  const completedDefaultTaskTexts = new Set([
+    "Plan tool system and COLLECTION. letter interaction.",
+    "Build Work Timer MVP.",
+    "Test Work Timer on desktop and mobile.",
+    "Connect task bar and tool visibility behavior.",
+    "Build Productivity Dashboard structure.",
+    "Add productivity graph connected to update/dev log data.",
+    "Cut top ticker read time down by 50%.",
+    "Update development log and publish changes."
+  ]);
+  const defaultTasks = [
+    { text: "Plan tool system and COLLECTION. letter interaction.", done: true },
+    { text: "Build Work Timer MVP.", done: true },
+    { text: "Test Work Timer on desktop and mobile.", done: true },
+    { text: "Build Note Writer MVP.", done: false },
+    { text: "Update task bar design.", done: false },
+    { text: "Connect task bar and tool visibility behavior.", done: true },
+    { text: "Build Productivity Dashboard structure.", done: true },
+    { text: "Add productivity graph connected to update/dev log data.", done: true },
+    { text: "Cut top ticker read time down by 50%.", done: true },
+    { text: "Test boot-logo-style filter on top ticker icons.", done: false },
+    { text: "Add TIMTIM'S SELECTION work to Album Covers.", done: false },
+    { text: "Check hosted website cache behavior.", done: false },
+    { text: "Research and fix startup safety warning issue.", done: false },
+    { text: "Audit remaining large image and video file sizes.", done: false },
+    { text: "Decide which files to compress, replace, or leave as-is.", done: false },
+    { text: "Build downloadable PDF version of the website/archive content.", done: false },
+    { text: "Polish phone responsive layout.", done: false },
+    { text: "Run final desktop, phone, and hosted test pass.", done: false },
+    { text: "Update development log and publish changes.", done: true }
+  ];
   const tasks = loadTasks();
 
   memoryGridWrapper.style.display = "none";
   memoryGrid.style.display = "none";
   previewWindow.appendChild(detailScreen);
   previewText.textContent = defaultPreviewText;
+  hideCollectionTools();
   setupDevelopmentLogLayer();
   setupTitleTickerLayer();
   setupMenuItemsLayer();
@@ -157,6 +209,7 @@ window.addEventListener("load", async () => {
     changelogData = data;
     renderChangelogTicker();
     renderDevelopmentLog();
+    renderProductivityGraph();
   }
 
   changelogDataPromise = loadChangelogData().catch(err => {
@@ -330,7 +383,7 @@ window.addEventListener("load", async () => {
     clearTimeout(previewClearTimeout);
     clearInterval(previewInterval);
     let dots = 0;
-    taskManager.classList.add("hidden");
+    hideCollectionTools();
     previewText.style.display = "flex";
     previewText.textContent = text;
 
@@ -426,7 +479,16 @@ window.addEventListener("load", async () => {
       if (!isExpanded) {
         previewText.textContent = defaultPreviewText;
         previewText.style.display = "none";
-        taskManager.classList.remove("hidden");
+        if (activeCollectionTool === "tasks") {
+          taskManager.classList.remove("hidden");
+        } else if (activeCollectionTool === "timer") {
+          workTimer.classList.remove("hidden");
+        } else if (activeCollectionTool === "productivity") {
+          productivityGraph.classList.remove("hidden");
+        } else if (activeCollectionTool === "placeholder") {
+          previewText.style.display = "flex";
+          previewText.textContent = activeCollectionPlaceholderText;
+        }
       }
     }, 500);
   }
@@ -462,7 +524,9 @@ window.addEventListener("load", async () => {
     scheduleCrtMaskUpdate();
     previewText.textContent = defaultPreviewText;
     previewText.style.display = "none";
-    taskManager.classList.remove("hidden");
+    activeCollectionTool = null;
+    activeCollectionPlaceholderText = "";
+    hideCollectionTools();
 
     memoryGrid.innerHTML = "";
     memoryGrid.style.display = "none";
@@ -582,7 +646,7 @@ window.addEventListener("load", async () => {
     memoryGridWrapper.style.display = "flex";
     memoryGrid.style.display = "grid";
     previewText.style.display = "none";
-    taskManager.classList.add("hidden");
+    hideCollectionTools();
 
     await gridDataPromise;
 
@@ -604,7 +668,7 @@ window.addEventListener("load", async () => {
     memoryGrid.style.display = "none";
     memoryGridWrapper.style.display = "none";
     previewText.style.display = "none";
-    taskManager.classList.add("hidden");
+    hideCollectionTools();
     openContactTerminal();
   }
 
@@ -623,6 +687,439 @@ window.addEventListener("load", async () => {
   });
 
   systemItem.addEventListener("mouseleave", clearPreview);
+
+  collectionLetters.forEach(letter => {
+    letter.addEventListener("click", () => {
+      if (isExpanded) {
+        return;
+      }
+
+      clearTimeout(previewClearTimeout);
+      clearInterval(previewInterval);
+      collectionLetters.forEach(item => item.classList.remove("active"));
+      letter.classList.add("active");
+
+      if (letter.dataset.tool === "tasks") {
+        openCollectionTool("tasks");
+        return;
+      }
+
+      if (letter.dataset.tool === "timer") {
+        openCollectionTool("timer");
+        return;
+      }
+
+      if (letter.dataset.tool === "productivity") {
+        openCollectionTool("productivity");
+        return;
+      }
+
+      activeCollectionTool = "placeholder";
+      activeCollectionPlaceholderText = letter.dataset.toolPlaceholder || "";
+      hideCollectionTools();
+      previewText.style.display = "flex";
+      previewText.textContent = activeCollectionPlaceholderText;
+    });
+  });
+
+  function hideCollectionTools() {
+    taskManager.classList.add("hidden");
+    workTimer.classList.add("hidden");
+    productivityGraph.classList.add("hidden");
+  }
+
+  function openCollectionTool(toolName) {
+    activeCollectionTool = toolName;
+    activeCollectionPlaceholderText = "";
+    previewText.style.display = "none";
+    hideCollectionTools();
+
+    if (toolName === "tasks") {
+      taskManager.classList.remove("hidden");
+    }
+
+    if (toolName === "timer") {
+      workTimer.classList.remove("hidden");
+      updateTimerDisplay();
+    }
+
+    if (toolName === "productivity") {
+      productivityGraph.classList.remove("hidden");
+      renderProductivityGraph();
+    }
+  }
+
+  function renderProductivityGraph() {
+    if (!productivityChart || !productivityTotal || !productivityPointList) {
+      return;
+    }
+
+    productivityChart.innerHTML = "";
+    productivityPointList.innerHTML = "";
+
+    if (!Array.isArray(changelogData) || changelogData.length === 0) {
+      productivityTotal.textContent = "NO SIGNAL";
+      return;
+    }
+
+    const points = changelogData.map(log => ({
+      version: log.version,
+      date: log.date,
+      count: Array.isArray(log.items) ? log.items.length : 0,
+      durationMinutes: Number.isFinite(Number(log.durationMinutes)) ? Number(log.durationMinutes) : 0,
+      obstruction: typeof log.obstruction === "string" ? log.obstruction : "",
+      solutionChoice: typeof log.solutionChoice === "string" ? log.solutionChoice : ""
+    }));
+    const totalTasks = points.reduce((sum, point) => sum + point.count, 0);
+    const totalMinutes = points.reduce((sum, point) => sum + point.durationMinutes, 0);
+    const maxTasks = Math.max(1, ...points.map(point => point.count));
+    const maxDuration = Math.max(1, ...points.map(point => point.durationMinutes));
+    const width = 1000;
+    const height = 420;
+    const padding = { left: 72, right: 34, top: 42, bottom: 86 };
+    const chartWidth = width - padding.left - padding.right;
+    const chartHeight = height - padding.top - padding.bottom;
+    const xStep = points.length > 1 ? chartWidth / (points.length - 1) : 0;
+    const coordinates = points.map((point, index) => {
+      const x = padding.left + xStep * index;
+      const y = padding.top + chartHeight - (point.count / maxTasks) * chartHeight;
+      const timeY = padding.top + chartHeight - (point.durationMinutes / maxDuration) * chartHeight;
+      return { ...point, x, y, timeY };
+    });
+    const linePoints = coordinates.map(point => `${point.x},${point.y}`).join(" ");
+    const timeLinePoints = coordinates.map(point => `${point.x},${point.timeY}`).join(" ");
+    const areaPoints = `${padding.left},${padding.top + chartHeight} ${linePoints} ${padding.left + chartWidth},${padding.top + chartHeight}`;
+
+    productivityTotal.textContent = `${totalTasks} TASKS / ${totalMinutes} MIN`;
+
+    for (let index = 0; index <= maxTasks; index += 1) {
+      const y = padding.top + chartHeight - (index / maxTasks) * chartHeight;
+      productivityChart.appendChild(createSvgElement("line", {
+        class: "productivity-grid-line",
+        x1: padding.left,
+        y1: y,
+        x2: padding.left + chartWidth,
+        y2: y
+      }));
+      productivityChart.appendChild(createSvgElement("text", {
+        class: "productivity-axis-label",
+        x: padding.left - 20,
+        y: y + 5,
+        "text-anchor": "end"
+      }, String(index)));
+    }
+
+    productivityChart.appendChild(createSvgElement("polygon", {
+      class: "productivity-area",
+      points: areaPoints
+    }));
+    productivityChart.appendChild(createSvgElement("polyline", {
+      class: "productivity-line",
+      points: linePoints
+    }));
+    productivityChart.appendChild(createSvgElement("polyline", {
+      class: "productivity-time-line",
+      points: timeLinePoints
+    }));
+
+    const labelEvery = Math.max(1, Math.ceil(points.length / 7));
+
+    coordinates.forEach((point, index) => {
+      const group = createSvgElement("g", {
+        class: "productivity-point",
+        "data-productivity-index": index,
+        role: "button",
+        tabindex: "0"
+      });
+      group.appendChild(createSvgElement("line", {
+        class: "productivity-point-stem",
+        x1: point.x,
+        y1: padding.top + chartHeight,
+        x2: point.x,
+        y2: point.y
+      }));
+      group.appendChild(createSvgElement("circle", {
+        class: "productivity-hit-target",
+        cx: point.x,
+        cy: point.y,
+        r: 40
+      }));
+      group.appendChild(createSvgElement("circle", {
+        class: "productivity-visible-dot",
+        cx: point.x,
+        cy: point.y,
+        r: 8
+      }));
+      group.appendChild(createSvgElement("title", {}, `${point.version} / ${point.date} / ${point.count} tasks`));
+      productivityChart.appendChild(group);
+
+      const timeGroup = createSvgElement("g", {
+        class: "productivity-time-point",
+        "data-productivity-index": index,
+        role: "button",
+        tabindex: "0"
+      });
+      timeGroup.appendChild(createSvgElement("circle", {
+        class: "productivity-hit-target",
+        cx: point.x,
+        cy: point.timeY,
+        r: 30
+      }));
+      timeGroup.appendChild(createSvgElement("circle", {
+        class: "productivity-visible-dot",
+        cx: point.x,
+        cy: point.timeY,
+        r: point.durationMinutes > 0 ? 6 : 3
+      }));
+      timeGroup.appendChild(createSvgElement("title", {}, `${point.version} / ${point.durationMinutes} minutes`));
+      productivityChart.appendChild(timeGroup);
+
+      if (index % labelEvery === 0 || index === coordinates.length - 1) {
+        productivityChart.appendChild(createSvgElement("text", {
+          class: "productivity-version-label",
+          x: point.x,
+          y: height - 42,
+          "text-anchor": "middle"
+        }, point.version));
+      }
+
+      const row = document.createElement("div");
+      row.className = "productivity-point-row";
+      row.dataset.productivityIndex = String(index);
+      row.innerHTML = `
+        <span class="productivity-row-version">${escapeHtml(point.version)}</span>
+        <span>${escapeHtml(point.date)}</span>
+        <span>${point.count} TASKS / ${point.durationMinutes} MIN</span>
+        <span class="productivity-row-detail">${escapeHtml(point.obstruction || "No obstruction note logged yet.")}</span>
+        <span class="productivity-row-detail">${escapeHtml(point.solutionChoice || "No solution choice logged yet.")}</span>
+      `;
+      productivityPointList.appendChild(row);
+
+      bindProductivityPoint(group, index);
+      bindProductivityPoint(timeGroup, index);
+    });
+  }
+
+  function bindProductivityPoint(pointElement, index) {
+    pointElement.addEventListener("mouseenter", () => {
+      pointElement.classList.add("hovered");
+      productivityChart.classList.add("point-hovering");
+    });
+
+    pointElement.addEventListener("mouseleave", () => {
+      pointElement.classList.remove("hovered");
+      if (!productivityChart.querySelector(".productivity-point.hovered, .productivity-time-point.hovered")) {
+        productivityChart.classList.remove("point-hovering");
+      }
+    });
+
+    pointElement.addEventListener("click", () => {
+      selectProductivityPoint(index);
+    });
+
+    pointElement.addEventListener("keydown", event => {
+      if (event.key !== "Enter" && event.key !== " ") {
+        return;
+      }
+
+      event.preventDefault();
+      selectProductivityPoint(index);
+    });
+  }
+
+  function selectProductivityPoint(index) {
+    const graphPoints = productivityChart.querySelectorAll("[data-productivity-index]");
+    const rows = productivityPointList.querySelectorAll("[data-productivity-index]");
+    const selectedRow = productivityPointList.querySelector(`[data-productivity-index="${index}"]`);
+
+    graphPoints.forEach(point => {
+      point.classList.toggle("selected", Number(point.dataset.productivityIndex) === index);
+    });
+
+    rows.forEach(row => {
+      row.classList.toggle("selected", Number(row.dataset.productivityIndex) === index);
+      row.classList.remove("selecting");
+    });
+
+    if (!selectedRow) {
+      return;
+    }
+
+    selectedRow.classList.add("selecting");
+    selectedRow.scrollIntoView({
+      behavior: "smooth",
+      block: "center"
+    });
+
+    setTimeout(() => {
+      selectedRow.classList.remove("selecting");
+    }, 1200);
+  }
+
+  function createSvgElement(tagName, attributes = {}, text = "") {
+    const element = document.createElementNS("http://www.w3.org/2000/svg", tagName);
+
+    Object.entries(attributes).forEach(([key, value]) => {
+      element.setAttribute(key, value);
+    });
+
+    if (text) {
+      element.textContent = text;
+    }
+
+    return element;
+  }
+
+  timerModes.forEach(modeButton => {
+    modeButton.addEventListener("click", () => {
+      const workMinutes = Number(modeButton.dataset.work);
+      const breakMinutes = Number(modeButton.dataset.break);
+      const workSeconds = Number(modeButton.dataset.workSeconds);
+      const breakSeconds = Number(modeButton.dataset.breakSeconds);
+      const nextWorkSeconds = Number.isFinite(workSeconds) ? workSeconds : workMinutes * 60;
+      const nextBreakSeconds = Number.isFinite(breakSeconds) ? breakSeconds : breakMinutes * 60;
+
+      if (!Number.isFinite(nextWorkSeconds) || !Number.isFinite(nextBreakSeconds)) {
+        return;
+      }
+
+      timerMode = { workSeconds: nextWorkSeconds, breakSeconds: nextBreakSeconds };
+      timerPhaseName = "WORK";
+      timerRemainingSeconds = timerMode.workSeconds;
+      timerRunning = false;
+      clearInterval(timerInterval);
+      timerModes.forEach(button => button.classList.remove("active"));
+      modeButton.classList.add("active");
+      workTimer.classList.remove("running", "break-mode");
+      timerStatus.textContent = "ANCIENT CLOCK IDLE";
+      updateTimerDisplay();
+    });
+  });
+
+  timerStart.addEventListener("click", () => {
+    ensureTimerAudio();
+
+    if (timerRunning) {
+      return;
+    }
+
+    timerRunning = true;
+    timerStatus.textContent = timerPhaseName === "WORK" ? "LOW CURRENT ACTIVE" : "HIGH CURRENT REST";
+    workTimer.classList.add("running");
+    playPhaseBuzz(timerPhaseName);
+    timerInterval = setInterval(runTimerTick, 1000);
+  });
+
+  timerPause.addEventListener("click", () => {
+    timerRunning = false;
+    clearInterval(timerInterval);
+    timerStatus.textContent = "SIGNAL HELD";
+    workTimer.classList.remove("running");
+  });
+
+  timerReset.addEventListener("click", () => {
+    timerRunning = false;
+    clearInterval(timerInterval);
+    timerPhaseName = "WORK";
+    timerRemainingSeconds = timerMode.workSeconds;
+    timerStatus.textContent = "ANCIENT CLOCK IDLE";
+    workTimer.classList.remove("running", "break-mode");
+    updateTimerDisplay();
+  });
+
+  function runTimerTick() {
+    playTimerTick();
+
+    if (timerRemainingSeconds <= 0) {
+      switchTimerPhase();
+      return;
+    }
+
+    timerRemainingSeconds -= 1;
+    updateTimerDisplay();
+
+    if (timerRemainingSeconds <= 0) {
+      switchTimerPhase();
+    }
+  }
+
+  function switchTimerPhase() {
+    timerPhaseName = timerPhaseName === "WORK" ? "BREAK" : "WORK";
+    timerRemainingSeconds = timerPhaseName === "WORK" ? timerMode.workSeconds : timerMode.breakSeconds;
+    timerStatus.textContent = timerPhaseName === "WORK" ? "LOW CURRENT ACTIVE" : "HIGH CURRENT REST";
+    workTimer.classList.toggle("break-mode", timerPhaseName === "BREAK");
+    playPhaseBuzz(timerPhaseName);
+    updateTimerDisplay();
+  }
+
+  function updateTimerDisplay() {
+    const minutes = Math.floor(timerRemainingSeconds / 60);
+    const seconds = timerRemainingSeconds % 60;
+    timerDisplay.textContent = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+    timerPhase.textContent = timerPhaseName;
+  }
+
+  function ensureTimerAudio() {
+    if (!timerAudioContext) {
+      timerAudioContext = new (window.AudioContext || window.webkitAudioContext)();
+    }
+
+    if (timerAudioContext.state === "suspended") {
+      timerAudioContext.resume();
+    }
+  }
+
+  function playTimerTick() {
+    if (!timerAudioContext) {
+      return;
+    }
+
+    const now = timerAudioContext.currentTime;
+    const oscillator = timerAudioContext.createOscillator();
+    const gain = timerAudioContext.createGain();
+    const filter = timerAudioContext.createBiquadFilter();
+
+    oscillator.type = "square";
+    oscillator.frequency.setValueAtTime(740, now);
+    filter.type = "lowpass";
+    filter.frequency.setValueAtTime(950, now);
+    gain.gain.setValueAtTime(0.0001, now);
+    gain.gain.exponentialRampToValueAtTime(0.035, now + 0.01);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.055);
+
+    oscillator.connect(filter);
+    filter.connect(gain);
+    gain.connect(timerAudioContext.destination);
+    oscillator.start(now);
+    oscillator.stop(now + 0.06);
+  }
+
+  function playPhaseBuzz(phaseName) {
+    if (!timerAudioContext) {
+      return;
+    }
+
+    const now = timerAudioContext.currentTime;
+    const baseFrequency = phaseName === "WORK" ? 112 : 260;
+
+    for (let index = 0; index < 3; index += 1) {
+      const start = now + index * 0.12;
+      const oscillator = timerAudioContext.createOscillator();
+      const gain = timerAudioContext.createGain();
+
+      oscillator.type = "sawtooth";
+      oscillator.frequency.setValueAtTime(baseFrequency + index * 18, start);
+      oscillator.frequency.exponentialRampToValueAtTime(baseFrequency * 0.85, start + 0.16);
+      gain.gain.setValueAtTime(0.0001, start);
+      gain.gain.exponentialRampToValueAtTime(0.08, start + 0.025);
+      gain.gain.exponentialRampToValueAtTime(0.0001, start + 0.22);
+
+      oscillator.connect(gain);
+      gain.connect(timerAudioContext.destination);
+      oscillator.start(start);
+      oscillator.stop(start + 0.24);
+    }
+  }
 
   taskAddButton.addEventListener("click", () => {
     taskInput.classList.remove("hidden");
@@ -671,7 +1168,7 @@ window.addEventListener("load", async () => {
   }
 
   function loadTasks() {
-    const fallbackTasks = defaultTasks.map(text => ({ text, done: false }));
+    const fallbackTasks = defaultTasks.map(task => ({ ...task }));
     const savedTasks = localStorage.getItem(taskStorageKey);
 
     if (!savedTasks) {
@@ -687,7 +1184,10 @@ window.addEventListener("load", async () => {
 
       const storedTasks = parsedTasks
         .filter(task => task && typeof task.text === "string")
-        .map(task => ({ text: task.text, done: Boolean(task.done) }));
+        .map(task => ({
+          text: task.text,
+          done: Boolean(task.done) || completedDefaultTaskTexts.has(task.text)
+        }));
 
       return storedTasks;
     } catch (error) {

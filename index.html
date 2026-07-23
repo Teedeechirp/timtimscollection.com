@@ -4,9 +4,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>PS2 Portfolio System</title>
+  <title>TIMTIM'S COLLECTION</title>
+  <link rel="icon" type="image/png" href="assets/Icons/favicon.png?v=20260723-1" />
 
-  <link rel="stylesheet" href="css/main.css"/>
+  <link rel="stylesheet" href="css/main.css?v=20260723-1"/>
 </head>
 
 <body>
@@ -50,7 +51,9 @@
       </div>
 
       <div class="menu-left">
-        <div class="menu-title">COLLECTION.</div>
+        <div class="menu-title" aria-label="Collection tools">
+          <button class="collection-letter" type="button" data-tool="tasks">C</button><button class="collection-letter" type="button" data-tool="timer">O</button><button class="collection-letter" type="button" data-tool="productivity">L</button><button class="collection-letter" type="button" data-tool-placeholder="3">L</button><button class="collection-letter" type="button" data-tool-placeholder="4">E</button><button class="collection-letter" type="button" data-tool-placeholder="5">C</button><button class="collection-letter" type="button" data-tool-placeholder="6">T</button><button class="collection-letter" type="button" data-tool-placeholder="7">I</button><button class="collection-letter" type="button" data-tool-placeholder="8">O</button><button class="collection-letter" type="button" data-tool-placeholder="9">N</button><button class="collection-letter" type="button" data-tool-placeholder="10">.</button>
+        </div>
         <div class="title-ticker" aria-label="Selection updates">
           <div class="ticker-track"></div>
         </div>
@@ -82,6 +85,38 @@
       <div id="task-list"></div>
     </div>
 
+    <div id="work-timer" class="hidden" aria-label="Work timer">
+      <div class="timer-header">
+        <div class="timer-label">WORK TIMER</div>
+        <div id="timer-phase">WORK</div>
+      </div>
+      <div class="timer-mode-row">
+        <button class="timer-mode active" type="button" data-work="25" data-break="5">25/5</button>
+        <button class="timer-mode" type="button" data-work="50" data-break="10">50/10</button>
+        <button class="timer-mode" type="button" data-work="90" data-break="20">90/20</button>
+        <button class="timer-mode timer-mode-test" type="button" data-work-seconds="15" data-break-seconds="5">15S</button>
+      </div>
+      <div id="timer-display">25:00</div>
+      <div id="timer-status">ANCIENT CLOCK IDLE</div>
+      <div class="timer-controls">
+        <button id="timer-start" type="button">START</button>
+        <button id="timer-pause" type="button">PAUSE</button>
+        <button id="timer-reset" type="button">RESET</button>
+      </div>
+    </div>
+
+    <div id="productivity-graph" class="hidden" aria-label="Productivity graph">
+      <div class="productivity-header">
+        <div>
+          <div class="productivity-label">PRODUCTIVITY INDEX</div>
+          <div class="productivity-subtitle">DEVLOG TASK OUTPUT</div>
+        </div>
+        <div id="productivity-total">0 TASKS</div>
+      </div>
+      <svg id="productivity-chart" viewBox="0 0 1000 420" role="img" aria-label="Line chart of devlog task output"></svg>
+      <div id="productivity-point-list"></div>
+    </div>
+
     <!-- GRID LAYER -->
     <div id="memory-grid-wrapper">
 
@@ -108,9 +143,9 @@
 
   </div>
 
-  <script src="js/StateManager.js"></script>
-  <script src="js/audioManager.js"></script>
-  <script src="js/Main.js"></script>
+  <script src="js/StateManager.js?v=20260723-1"></script>
+  <script src="js/audioManager.js?v=20260723-1"></script>
+  <script src="js/Main.js?v=20260723-1"></script>
 
   <div id="arcade-crt-overlay" aria-hidden="true">
     <div class="crt-mask-zone" data-crt-zone="top"></div>

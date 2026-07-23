@@ -177,5 +177,58 @@
       "Cleared the task manager defaults and added a task clear button",
       "Added mobile overflow guards to prevent unwanted phone zoom"
     ]
+  },
+  {
+    "version": "v0.4.3",
+    "date": "July 10, 2026",
+    "items": [
+      "Researched hosting the website through GitHub",
+      "Learned the basics of Git and how project versions are managed",
+      "Learned how to use GitHub for publishing a static website",
+      "Configured the project for public hosting",
+      "Hosted the website through GitHub so visitors can now access it online",
+      "Updated Contact Terminal details with the new domain email and public archive address",
+      "Replaced the artist profile image with a looping profile video",
+      "Refined mobile Browser grid title labels for the hosted phone version"
+    ]
+  },
+  {
+    "version": "v0.4.4",
+    "date": "July 23, 2026",
+    "startTime": "17:35",
+    "endTime": "18:22",
+    "durationMinutes": 47,
+    "obstruction": "The COLLECTION. tools needed to become a usable control system without breaking the existing preview window, menu hover behavior, or devlog workflow.",
+    "solutionChoice": "Turn the COLLECTION. letters into individual tool buttons, keep each tool isolated inside the preview window, and extend the changelog JSON so future updates can track both task output and time spent.",
+    "items": [
+      "Added a persistent task manager behind the first COLLECTION. letter",
+      "Added an ancient-computer styled work timer with 25/5, 50/10, and 90/20 modes",
+      "Added generated tick and buzz sounds through browser audio",
+      "Added a JSON-powered productivity graph behind the next COLLECTION. letter",
+      "Connected the productivity graph to devlog version, date, and completed task count",
+      "Fixed menu hover previews so selected COLLECTION. tools return after hover ends",
+      "Adjusted main menu button hitboxes to match the visible text area",
+      "Added timed devlog fields for start time, end time, duration, obstruction, and solution choice"
+    ]
+  },
+  {
+    "version": "v0.4.5",
+    "date": "July 23, 2026",
+    "startTime": "18:22",
+    "endTime": "19:53",
+    "durationMinutes": 91,
+    "obstruction": "The new tools needed more practical testing controls and clearer interface feedback before the session could be closed cleanly.",
+    "solutionChoice": "Polish the small interaction problems directly in the existing UI language, then record the finished work in both the JSON devlog and calendar schedule.",
+    "items": [
+      "Increased the top skill ticker speed",
+      "Tightened main menu hover hitboxes to match the visible text boxes",
+      "Added timed obstruction and solution data to the productivity chart",
+      "Added graph dot hover glow, enlarged hitboxes, softened inactive dots, and click-to-scroll list selection",
+      "Inverted scrollbar colors across scrollable interface panels",
+      "Updated the browser tab title to TIMTIM'S COLLECTION",
+      "Added the custom TIMTIM'S favicon image",
+      "Removed a faint dark CRT mask edge beside the preview window",
+      "Added a 15-second timer test mode for quickly checking tick and buzz sounds"
+    ]
   }
 ]
